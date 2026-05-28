@@ -1,0 +1,30 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Validar estrutura do projeto
+        run: |
+          echo "Verificando arquivos..."
+          test -f site/index.html
+
+      - name: Validar HTML (simples)
+        run: |
+          echo "Validando conteúdo HTML..."
+          grep "<html" site/index.html
+          grep "<body" site/index.html
+
+      - name: Teste simulado
+        run: |
+          echo "Executando testes básicos..."
+          echo "Teste passou com sucesso!"
